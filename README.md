@@ -168,3 +168,12 @@ met.ps = sample_data(met)
 
 ps <- phyloseq(asv.ps, tax.ps, met.ps)
 ```
+Now that we have a phyloseq object of your microbiome data, before analyzing let's make sure you do some tidying up. One of the common errors is due to some read counts listed as NA, you can just replace it as 0.
+
+```{cars}
+# Replace NA values with 0 in the otu_table of the phyloseq object (ps)
+otu_table(ps) <- replace(otu_table(ps), is.na(otu_table(ps)), 0)
+
+# Verify that NA values are replaced with 0
+summary(taxa_sums(ps))
+```
